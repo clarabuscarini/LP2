@@ -1,0 +1,37 @@
+package aula0905;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class ex1 {
+	
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        FileInputStream arquivo = null;
+
+        while (arquivo == null) {
+            try {
+                System.out.print("Digite o"
+                		+ " arquivo de leitura: ");
+                String nomeArquivo = input.nextLine();
+                File f = new File(nomeArquivo);
+                arquivo = new FileInputStream(f);
+            } catch (IOException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
+        }
+
+        try {
+            int tamanho = arquivo.available();
+            byte[] bytes = new byte[tamanho];
+            arquivo.read(bytes);
+            for (byte b : bytes) {
+                System.out.print(b + " ");
+            }
+            arquivo.close();
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+        }
+    }
+}
